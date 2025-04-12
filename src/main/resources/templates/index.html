@@ -1,0 +1,14 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Game List</title>
+</head>
+<body>
+    <h1>My Game List</h1>
+    <ul>
+        <li th:each="juego : ${juegos}">
+            <span th:text="${juego.nombre}">Nombre del juego</span>
+        </li>
+    </ul>
+</body>
+</html>
