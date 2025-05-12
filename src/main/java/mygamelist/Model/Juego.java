@@ -1,5 +1,7 @@
 package mygamelist.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 public class Juego {
 
     private int id;
@@ -11,6 +13,7 @@ public class Juego {
     public Juego() {
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public Juego(int id, String name, String released, String background_image, double rating) {
         this.id = id;
         this.name = name;

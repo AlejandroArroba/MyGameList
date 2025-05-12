@@ -8,12 +8,12 @@ public class RawgResponse {
 
     private List<Juego> results;
 
-    public List<Juego> getResult() {
+    public List<Juego> getResults() {
         return results;
     }
 
-    public void setResult(List<Juego> result) {
-        this.results = result;
+    public void setResults(List<Juego> results) {
+        this.results = results;
     }
 
 }

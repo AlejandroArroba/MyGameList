@@ -2,39 +2,39 @@ package mygamelist.Service;
 
 import mygamelist.Model.Juego;
 import mygamelist.Response.RawgResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class JuegoService {
 
-    private final WebClient webClient;
+    @Value("${rawg.api.key}")
+    private String apiKey;
 
-    public JuegoService(WebClient webClient) {
-        this.webClient = webClient;
+    @Autowired
+    private RestTemplate restTemplate;
+
+    private final String API_KEY = "b64ea3a5ed08437e988d5aac94dc23b8";
+
+    public List<Juego> obtenerJuegos() {
+        String url = "https://api.rawg.io/api/games?key=" + API_KEY;
+
+        RawgResponse response = restTemplate.getForObject(url, RawgResponse.class);
+
+        if (response != null && response.getResults() != null) {
+            return response.getResults(); // devolvemos los juegos
+        } else {
+            return new ArrayList<>();
+        }
     }
 
-    public Mono<List<Juego>> obtenerJuego() {
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/games")
-                        .queryParam("key", "b64ea3a5ed08437e988d5aac94dc23b8")
-                        .build())
-                .retrieve().onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-                        clientResponse -> {
-                        System.out.println("Error en la solicitud: " + clientResponse.statusCode());
-                        return Mono.error(new RuntimeException("Error al obtener los juegos"));
-                        })
-                .bodyToMono(RawgResponse.class)
-                .doOnError(e -> {
-                    System.out.println("Error al mapear la respuesta de Rawg: " + e.getMessage());
-                })
-                .map(RawgResponse::getResult)
-                .onErrorResume(e -> Mono.empty());
-
+    public Juego obtenerJuego(int id) {
+        String url = "https://api.rawg.io/api/games/" + id + "?key=" + API_KEY;
+        return restTemplate.getForObject(url, Juego.class);
     }
-
 }
