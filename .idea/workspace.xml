@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="94e8d99f-f441-4ca7-bde7-a6e67281cfe3" name="Changes" comment="Inyección de dependencias">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mygamelist/Config/WebClientConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mygamelist/Controller/JuegoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mygamelist/Model/Juego.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mygamelist/MyGameListApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mygamelist/Response/RawgResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mygamelist/Service/JuegoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/mygamelist/MyGameListApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="com.intellij.jpb.JpaEntity" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AlejandroArroba&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AlejandroArroba/MyGameList.git&quot;,
+    &quot;accountId&quot;: &quot;5d67a3ae-fe69-4116-92ed-c48ad63bf066&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2vaWdzvcYD4whknXer56E9KlAUa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.MyGameListApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/DAW/Laguna/MyGameList/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\DAW\\Laguna\\MyGameList\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql",
+      "mariadb"
+    ]
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="MyGameListApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="MyGameList" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="mygamelist.MyGameListApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="94e8d99f-f441-4ca7-bde7-a6e67281cfe3" name="Changes" comment="" />
+      <created>1744383758365</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744383758365</updated>
+      <workItem from="1744383759253" duration="564000" />
+      <workItem from="1744454227654" duration="5944000" />
+      <workItem from="1744477706223" duration="194000" />
+      <workItem from="1744627241825" duration="1831000" />
+      <workItem from="1745310513548" duration="6000" />
+      <workItem from="1745407553933" duration="2000" />
+      <workItem from="1745483538849" duration="70000" />
+      <workItem from="1745566725606" duration="2833000" />
+      <workItem from="1746375851729" duration="838000" />
+      <workItem from="1746543736897" duration="3256000" />
+      <workItem from="1746692856913" duration="41000" />
+      <workItem from="1746721322749" duration="1319000" />
+      <workItem from="1746806517303" duration="2282000" />
+      <workItem from="1746875304938" duration="2908000" />
+      <workItem from="1746959375302" duration="728000" />
+      <workItem from="1746961089985" duration="2625000" />
+      <workItem from="1746975886963" duration="331000" />
+      <workItem from="1746978800262" duration="241000" />
+      <workItem from="1747067740597" duration="55000" />
+      <workItem from="1747147737863" duration="126000" />
+      <workItem from="1747147873084" duration="5451000" />
+      <workItem from="1747158558912" duration="728000" />
+    </task>
+    <task id="LOCAL-00001" summary="Commit Inicial">
+      <option name="closed" value="true" />
+      <created>1744477893289</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744477893289</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Inyección de dependencias">
+      <option name="closed" value="true" />
+      <created>1747067787455</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1747067787455</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Commit Inicial" />
+    <MESSAGE value="Inyección de dependencias" />
+    <option name="LAST_COMMIT_MESSAGE" value="Inyección de dependencias" />
+  </component>
+</project>

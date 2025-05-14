@@ -1,0 +1,9 @@
+<h1>Lista de Juegos</h1>
+<ul>
+    <li *ngFor="let juego of juegos">
+        <img [src]="juego.background_image" alt="{{juego.name}}" width="100">
+        <h3>{{ juego.name }}</h3>
+        <p>Fecha de lanzamiento: {{ juego.released }}</p>
+        <p>Rating: {{ juego.rating }}</p>
+    </li>
+</ul>
