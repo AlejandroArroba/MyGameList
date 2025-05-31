@@ -1,6 +1,6 @@
 package mygamelist;
 
-import mygamelist.Service.JuegoService;
+import mygamelist.service.JuegoService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +16,7 @@ public class MyGameListApplication {
     @Bean
     public CommandLineRunner run(JuegoService juegoService) {
         return args -> {
-            juegoService.obtenerJuegos();
+            juegoService.obtenerJuegos(1);
         };
     }
 }

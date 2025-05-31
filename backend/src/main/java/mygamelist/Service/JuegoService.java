@@ -1,19 +1,20 @@
-package mygamelist.Service;
+package mygamelist.service;
 
-import mygamelist.DTOs.GuardarJuegoDTO;
-import mygamelist.Entities.Juego;
-import mygamelist.Entities.Usuario;
-import mygamelist.Entities.UsuariosJuego;
-import mygamelist.Model.JuegoModel;
-import mygamelist.Repositories.JuegoRepository;
-import mygamelist.Repositories.UsuarioRepository;
-import mygamelist.Repositories.UsuariosJuegoRepository;
-import mygamelist.Response.RawgResponse;
+import mygamelist.dtos.GuardarJuegoDTO;
+import mygamelist.entities.Juego;
+import mygamelist.entities.Usuario;
+import mygamelist.entities.UsuariosJuego;
+import mygamelist.model.JuegoModel;
+import mygamelist.repositories.JuegoRepository;
+import mygamelist.repositories.UsuarioRepository;
+import mygamelist.repositories.UsuariosJuegoRepository;
+import mygamelist.response.RawgResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,13 +39,21 @@ public class JuegoService {
     @Autowired
     private UsuariosJuegoRepository usuariosJuegoRepository;
 
-    public List<JuegoModel> obtenerJuegos() {
-        String url = "https://api.rawg.io/api/games?key=" + API_KEY;
+    public List<JuegoModel> obtenerJuegos(int page) {
+        String url = "https://api.rawg.io/api/games?key=" + API_KEY + "&page=" + page + "&page_size=20";
 
         RawgResponse response = restTemplate.getForObject(url, RawgResponse.class);
 
         if (response != null && response.getResults() != null) {
-            return response.getResults(); // devolvemos los juegos
+            return response.getResults().stream()
+                    .map(juego -> new JuegoModel(
+                            juego.getId(),
+                            juego.getName(),
+                            juego.getBackgroundImage(),
+                            juego.getReleased(),
+                            juego.getRating()
+                    ))
+                    .toList();
         } else {
             return new ArrayList<>();
         }
@@ -70,5 +79,43 @@ public class JuegoService {
             return true;
         }
         return false;
+    }
+
+    public List<JuegoModel> buscarJuegos(String search, boolean exacto) {
+        String url = "https://api.rawg.io/api/games"
+                + "?search=" + search
+                + "&page_size=40"
+                + "&key=" + API_KEY;
+
+        RawgResponse response = restTemplate.getForObject(url, RawgResponse.class);
+
+        if (response != null && response.getResults() != null) {
+            String searchNormalizado = normalizar(search);
+
+            return response.getResults().stream()
+                    .filter(juego -> {
+                        String nombreNormalizado = normalizar(juego.getName());
+                        return exacto
+                                ? nombreNormalizado.equals(searchNormalizado)
+                                : nombreNormalizado.contains(searchNormalizado);
+                    })
+                    .map(juego -> new JuegoModel(
+                            juego.getId(),
+                            juego.getName(),
+                            juego.getBackgroundImage(),
+                            juego.getReleased(),
+                            juego.getRating()
+                    ))
+                    .toList();
+        } else {
+            return List.of();
+        }
+    }
+
+    private String normalizar(String texto) {
+        if (texto == null) return null;
+        return Normalizer.normalize(texto, Normalizer.Form.NFD)
+                .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
+                .toLowerCase();
     }
 }

@@ -1,19 +1,16 @@
-package mygamelist.Response;
-
-import mygamelist.Model.JuegoModel;
+package mygamelist.response;
 
 import java.util.List;
 
 public class RawgResponse {
 
-    private List<JuegoModel> results;
+    private List<RawgJuego> results;
 
-    public List<JuegoModel> getResults() {
+    public List<RawgJuego> getResults() {
         return results;
     }
 
-    public void setResults(List<JuegoModel> results) {
+    public void setResults(List<RawgJuego> results) {
         this.results = results;
     }
-
 }

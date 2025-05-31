@@ -1,22 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { JuegoService, Juego } from './services/juego.service';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './app.component.html'
+  imports: [CommonModule, RouterModule],
+  template: `<router-outlet></router-outlet>`
 })
 export class AppComponent implements OnInit {
-
-  juegos: Juego[] = [];
-
-  constructor(private juegoService: JuegoService) {}
-
   ngOnInit(): void {
-    this.juegoService.obtenerJuegos().subscribe(data => {
-      this.juegos = data;
-    });
+    if (typeof window !== 'undefined') {
+      console.log('Token en AppComponent:', localStorage.getItem('token'));
+    }
   }
 }

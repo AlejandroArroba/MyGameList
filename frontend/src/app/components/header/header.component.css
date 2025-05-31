@@ -1,0 +1,58 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #121212;
+  padding: 0.5rem 1.5rem; /* 🔻 Reduce el espacio vertical */
+  box-shadow: 0 4px 8px rgba(255, 60, 111, 0.1);
+  border-bottom: 2px solid #6c1b2e;
+}
+
+.logo img {
+  height: 100px; /* 🔻 Altura razonable para un logo */
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.user-actions a {
+  color: #ff6b92;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.user-actions a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 60, 111, 0.5);
+}
+
+.cerrar-sesion {
+  background: linear-gradient(135deg, #ff3c6f, #c62857);
+  border: none;
+  padding: 0.4rem 0.9rem;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.cerrar-sesion:hover {
+  background: linear-gradient(135deg, #ff5c85, #d13b63);
+  transform: translateY(-2px);
+}
+
+.paginacion button:first-child,
+.paginacion button:last-child {
+  margin: 0 0.5rem;
+}

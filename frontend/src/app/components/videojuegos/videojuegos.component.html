@@ -1,0 +1,47 @@
+<div class="container">
+  <app-header></app-header>
+  <h1 class="titulo">Lista de Videojuegos</h1>
+
+  <div class="buscador-container">
+    <input
+      type="text"
+      [(ngModel)]="busqueda"
+      (input)="buscarJuegos()"
+    (keyup.enter)="buscarExacto()"
+    placeholder="Buscar videojuegos..."
+    class="buscador-input"
+    />
+  </div>
+
+  <div class="grid">
+    <div class="card" *ngFor="let juego of juegos">
+      <img [src]="juego.backgroundImage" alt="{{ juego.name }}" />
+      <div class="contenido">
+        <h2>{{ juego.name }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="paginacion">
+    <!-- Botón para ir a la primera página -->
+    <button (click)="irAPagina(1)" [disabled]="paginaActual === 1">«</button>
+
+    <!-- Botón anterior -->
+    <button (click)="anteriorPagina()" [disabled]="paginaActual === 1">‹</button>
+
+    <!-- Botones de número de página -->
+    <button
+      *ngFor="let pagina of paginas"
+      (click)="irAPagina(pagina)"
+      [class.activa]="pagina === paginaActual"
+    >
+      {{ pagina }}
+    </button>
+
+    <!-- Botón siguiente -->
+    <button (click)="siguientePagina()" [disabled]="paginaActual === totalPaginas">›</button>
+
+    <!-- Botón para ir a la última página -->
+    <button (click)="irAPagina(totalPaginas)" [disabled]="paginaActual === totalPaginas">»</button>
+  </div>
+</div>

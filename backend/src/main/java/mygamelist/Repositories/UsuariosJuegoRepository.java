@@ -1,6 +1,6 @@
-package mygamelist.Repositories;
+package mygamelist.repositories;
 
-import mygamelist.Entities.UsuariosJuego;
+import mygamelist.entities.UsuariosJuego;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuariosJuegoRepository extends JpaRepository<UsuariosJuego, Long> {

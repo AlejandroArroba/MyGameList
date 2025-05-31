@@ -1,4 +1,4 @@
-package mygamelist.Entities;
+package mygamelist.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -36,7 +36,7 @@ public class Juego {
     private BigDecimal ratingRawg;
 
     @OneToMany(mappedBy = "juego")
-    private Set<mygamelist.Entities.UsuariosJuego> usuariosJuegos = new LinkedHashSet<>();
+    private Set<mygamelist.entities.UsuariosJuego> usuariosJuegos = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;

@@ -1,8 +1,8 @@
-package mygamelist.Controller;
+package mygamelist.controller;
 
-import mygamelist.DTOs.GuardarJuegoDTO;
-import mygamelist.Model.JuegoModel;
-import mygamelist.Service.JuegoService;
+import mygamelist.dtos.GuardarJuegoDTO;
+import mygamelist.model.JuegoModel;
+import mygamelist.service.JuegoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/juegos")
 public class JuegoController {
@@ -19,8 +18,8 @@ public class JuegoController {
     private JuegoService juegoService;
 
     @GetMapping
-    public List<JuegoModel> obtenerJuegos() {
-        return juegoService.obtenerJuegos();
+    public List<JuegoModel> obtenerJuegos(@RequestParam(defaultValue = "1") int page) {
+        return juegoService.obtenerJuegos(page);
     }
 
     @GetMapping("/{id}")
@@ -36,6 +35,11 @@ public class JuegoController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar el juego");
         }
+    }
+
+    @GetMapping("/buscar")
+    public List<JuegoModel> buscarJuegos(@RequestParam String query, @RequestParam(defaultValue = "false") boolean exacto) {
+        return juegoService.buscarJuegos(query, exacto);
     }
 
 }

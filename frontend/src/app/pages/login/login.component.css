@@ -1,0 +1,103 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #121212;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #e0e0e0;
+}
+
+.login-card {
+  background: linear-gradient(145deg, #1e1e1e, #151515);
+  border: 2px solid #6c1b2e;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 15px rgba(255, 60, 111, 0.1);
+  transition: box-shadow 0.3s ease, border 0.3s;
+}
+
+.login-card:hover {
+  box-shadow: 0 0 20px rgba(255, 60, 111, 0.3);
+  border-color: #ff3c6f;
+}
+
+.titulo {
+  text-align: center;
+  color: #ff3c6f;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 12px rgba(255, 60, 111, 0.6);
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ff6b92;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #1e1e1e;
+  border: 1px solid #6c1b2e;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff3c6f;
+  box-shadow: 0 0 6px rgba(255, 60, 111, 0.4);
+}
+
+.boton {
+  width: 100%;
+  padding: 0.7rem;
+  background: linear-gradient(135deg, #ff3c6f, #c62857);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 1rem;
+}
+
+.boton:hover {
+  background: linear-gradient(135deg, #ff5c85, #d13b63);
+}
+
+.error {
+  color: #ff6b92;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.registro-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #aaa;
+}
+
+.registro-link a {
+  color: #ff3c6f;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.registro-link a:hover {
+  text-decoration: underline;
+}
+
+

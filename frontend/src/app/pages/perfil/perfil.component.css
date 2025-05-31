@@ -1,0 +1,59 @@
+:host {
+  display: block;
+  padding: 2rem;
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+.titulo {
+  color: #ff3c6f;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  text-shadow: 0 0 12px rgba(255, 60, 111, 0.6), 0 0 24px rgba(0, 255, 255, 0.1);
+}
+
+.perfil-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.perfil-card {
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(145deg, #1e1e1e, #151515);
+  border: 2px solid #6c1b2e;
+  border-radius: 14px;
+  box-shadow: 0 0 15px rgba(255, 60, 111, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s;
+}
+
+.perfil-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(255, 60, 111, 0.3), 0 0 10px rgba(0, 204, 255, 0.1);
+  border-color: #ff3c6f;
+}
+
+.contenido {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contenido h2 {
+  margin: 0;
+  color: #ff6b92;
+  font-size: 1.8rem;
+  text-shadow: 0 0 6px rgba(255, 107, 146, 0.5);
+  text-align: center;
+}
+
+.contenido p {
+  margin: 0;
+  color: #ccc;
+  font-size: 1rem;
+}

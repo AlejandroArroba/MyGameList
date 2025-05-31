@@ -1,4 +1,4 @@
-package mygamelist.Entities;
+package mygamelist.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

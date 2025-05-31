@@ -1,4 +1,4 @@
-package mygamelist.DTOs;
+package mygamelist.dtos;
 
 public class GuardarJuegoDTO {
     private Long usuarioId;
