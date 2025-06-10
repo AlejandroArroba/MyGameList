@@ -1,74 +1,99 @@
 <app-header></app-header>
 <h1 class="titulo">Mi Perfil</h1>
 
-<div *ngIf="usuario">
-  <div class="perfil-wrapper">
+<div *ngIf="usuario" class="perfil-wrapper">
+  <div class="perfil-grid">
+    <!-- Columna 1: Formulario de perfil -->
     <div class="perfil-card">
-      <div class="contenido">
-        <!-- Formulario para editar perfil -->
-        <form (ngSubmit)="guardarCambios()">
-          <label>
-            Nombre de Usuario:
-            <input type="text" [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required />
-          </label>
-          <label>
-            Nombre:
-            <input type="text" [(ngModel)]="usuario.nombre" name="nombre" required />
-          </label>
-          <label>
-            Apellidos:
-            <input type="text" [(ngModel)]="usuario.apellidos" name="apellidos" required />
-          </label>
-          <label>
-            Teléfono:
-            <input type="text" [(ngModel)]="usuario.telefono" name="telefono" />
-          </label>
-          <label>
-            Email:
-            <input type="text" [value]="usuario.email" disabled />
-          </label>
-          <button type="submit" class="boton">Guardar cambios</button>
-        </form>
+      <h2 class="titulo-seccion">Datos de Perfil</h2>
+      <form (ngSubmit)="guardarCambios()">
+        <label>
+          Nombre de Usuario:
+          <input type="text" [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required />
+        </label>
+        <label>
+          Nombre:
+          <input type="text" [(ngModel)]="usuario.nombre" name="nombre" required />
+        </label>
+        <label>
+          Apellidos:
+          <input type="text" [(ngModel)]="usuario.apellidos" name="apellidos" required />
+        </label>
+        <label>
+          Teléfono:
+          <input type="text" [(ngModel)]="usuario.telefono" name="telefono" />
+        </label>
+        <label>
+          Email:
+          <input type="text" [value]="usuario.email" disabled />
+        </label>
+        <button type="submit" class="boton">Guardar cambios</button>
+      </form>
+    </div>
 
-        <!-- Sección para cambiar la contraseña -->
-        <div class="cambiar-contrasena">
-          <h2 class="titulo-seccion">Cambiar Contraseña</h2>
-          <form (ngSubmit)="cambiarContrasena()">
-            <label for="currentPassword">Contraseña Actual</label>
-            <input
-              type="password"
-              id="currentPassword"
-              [(ngModel)]="currentPassword"
-              name="currentPassword"
-              required
-              placeholder="Ingresa tu contraseña actual"
-            />
-            <label for="newPassword">Nueva Contraseña</label>
-            <input
-              type="password"
-              id="newPassword"
-              [(ngModel)]="newPassword"
-              name="newPassword"
-              required
-              placeholder="Ingresa tu nueva contraseña"
-            />
-            <button type="submit" class="boton">Cambiar Contraseña</button>
-          </form>
+    <!-- Columna 2: Cambiar contraseña -->
+    <div class="perfil-card cambiar-contrasena">
+      <h2 class="titulo-seccion">Cambiar Contraseña</h2>
+      <form (ngSubmit)="cambiarContrasena()">
+        <label for="currentPassword">Contraseña Actual</label>
+        <div class="campo-password">
+          <input
+            [type]="mostrarPasswordActual ? 'text' : 'password'"
+            id="currentPassword"
+            [(ngModel)]="currentPassword"
+            name="currentPassword"
+            required
+            placeholder="Ingresa tu contraseña actual"
+          />
+          <button type="button" class="toggle-password" (click)="mostrarPasswordActual = !mostrarPasswordActual" tabindex="-1">
+            <i class="fa" [ngClass]="mostrarPasswordActual ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
         </div>
 
-        <h2 class="titulo-seccion">🎮 Juegos que me han gustado</h2>
-        <ul>
-          <li *ngFor="let juego of gustados">{{ juego.nombre }}</li>
-        </ul>
-        <h2 class="titulo-seccion">🕒 Juegos pendientes</h2>
-        <ul>
-          <li *ngFor="let juego of pendientes">{{ juego.nombre }}</li>
-        </ul>
-        <h2 class="titulo-seccion">🚫 Juegos abandonados</h2>
-        <ul>
-          <li *ngFor="let juego of abandonados">{{ juego.nombre }}</li>
-        </ul>
-      </div>
+        <label for="newPassword">Nueva Contraseña</label>
+        <div class="campo-password">
+          <input
+            [type]="mostrarPasswordNueva ? 'text' : 'password'"
+            id="newPassword"
+            [(ngModel)]="newPassword"
+            name="newPassword"
+            required
+            minlength="8"
+            pattern="^(?=.*[A-Z]).{8,}$"
+            #newPasswordModel="ngModel"
+            placeholder="Ingresa tu nueva contraseña"
+          />
+          <button type="button" class="toggle-password" (click)="mostrarPasswordNueva = !mostrarPasswordNueva" tabindex="-1">
+            <i class="fa" [ngClass]="mostrarPasswordNueva ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div *ngIf="newPasswordModel.invalid && newPasswordModel.touched" class="invalid-feedback">
+          <div *ngIf="newPasswordModel.errors?.['required']">La contraseña es obligatoria.</div>
+          <div *ngIf="newPasswordModel.errors?.['minlength']">Debe tener al menos 8 caracteres.</div>
+          <div
+            *ngIf="!newPasswordModel.errors?.['minlength'] && newPasswordModel.errors?.['pattern']">
+            Debe contener al menos una mayúscula.
+          </div>
+        </div>
+
+        <button type="submit" class="boton">Cambiar Contraseña</button>
+      </form>
     </div>
+  </div>
+
+  <!-- Sección de listas de juegos -->
+  <div class="listas-juegos">
+    <h2 class="titulo-seccion">🎮 Juegos que me han gustado</h2>
+    <ul>
+      <li *ngFor="let juego of gustados">{{ juego.nombre }}</li>
+    </ul>
+    <h2 class="titulo-seccion">🕒 Juegos pendientes</h2>
+    <ul>
+      <li *ngFor="let juego of pendientes">{{ juego.nombre }}</li>
+    </ul>
+    <h2 class="titulo-seccion">🚫 Juegos abandonados</h2>
+    <ul>
+      <li *ngFor="let juego of abandonados">{{ juego.nombre }}</li>
+    </ul>
   </div>
 </div>

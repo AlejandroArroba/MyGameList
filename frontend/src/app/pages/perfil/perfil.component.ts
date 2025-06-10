@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderComponent } from '../header/header.component';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
@@ -21,6 +21,9 @@ export class PerfilComponent implements OnInit {
   // Variables para cambiar la contraseña
   currentPassword: string = '';
   newPassword: string = '';
+  mostrarPasswordActual: boolean = false;
+  mostrarPasswordNueva: boolean = false;
+
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 

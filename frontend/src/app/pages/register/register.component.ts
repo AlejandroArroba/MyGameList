@@ -20,6 +20,9 @@ export class RegisterComponent {
   rol = 'USER';  // Valor por defecto es 'USER'
   error = '';
   exito = '';
+  mostrarPassword: boolean = false;
+  mostrarConfirmPassword: boolean = false;
+
 
   constructor(private authService: AuthService, private router: Router) {}
 

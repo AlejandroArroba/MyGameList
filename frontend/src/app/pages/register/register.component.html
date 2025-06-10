@@ -42,17 +42,23 @@
       <!-- Contraseña -->
       <div class="form-group">
         <label for="contrasena">Contraseña:</label>
-        <input
-          id="contrasena"
-          type="password"
-          [(ngModel)]="contrasena"
-          name="contrasena"
-          required
-          minlength="8"
-          pattern=".*[A-Z].*"
-          #contrasenaModel="ngModel"
-          class="form-control"
-        />
+        <div class="campo-password">
+          <input
+            id="contrasena"
+            [type]="mostrarPassword ? 'text' : 'password'"
+            [(ngModel)]="contrasena"
+            name="contrasena"
+            required
+            minlength="8"
+            pattern=".*[A-Z].*"
+            #contrasenaModel="ngModel"
+            class="form-control"
+          />
+          <button type="button" class="toggle-password" (click)="mostrarPassword = !mostrarPassword" tabindex="-1">
+            <i class="fa" [ngClass]="mostrarPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <!-- Validaciones -->
         <div *ngIf="contrasenaModel.invalid && contrasenaModel.touched" class="invalid-feedback">
           <div *ngIf="contrasenaModel.errors?.['required']">La contraseña es obligatoria.</div>
           <div *ngIf="contrasenaModel.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</div>
@@ -63,18 +69,23 @@
       <!-- Confirmar Contraseña -->
       <div class="form-group">
         <label for="confirmContrasena">Confirmar Contraseña:</label>
-        <input
-          id="confirmContrasena"
-          type="password"
-          [(ngModel)]="confirmContrasena"
-          name="confirmContrasena"
-          required
-          #confirmContrasenaModel="ngModel"
-          class="form-control"
-        />
+        <div class="campo-password">
+          <input
+            id="confirmContrasena"
+            [type]="mostrarConfirmPassword ? 'text' : 'password'"
+            [(ngModel)]="confirmContrasena"
+            name="confirmContrasena"
+            required
+            #confirmContrasenaModel="ngModel"
+            class="form-control"
+          />
+          <button type="button" class="toggle-password" (click)="mostrarConfirmPassword = !mostrarConfirmPassword" tabindex="-1">
+            <i class="fa" [ngClass]="mostrarConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <!-- Validaciones -->
         <div *ngIf="confirmContrasenaModel.invalid && confirmContrasenaModel.touched" class="invalid-feedback">
           <div *ngIf="confirmContrasenaModel.errors?.['required']">Confirmar contraseña es obligatorio.</div>
-          <div *ngIf="confirmContrasenaModel.errors?.['pattern']">Las contraseñas no coinciden.</div>
         </div>
       </div>
 

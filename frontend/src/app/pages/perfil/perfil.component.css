@@ -1,33 +1,26 @@
-:host {
-  display: block;
-  padding: 2rem;
-  background-color: #121212;
-  color: #e0e0e0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 100vh;
-}
-
-.titulo {
-  color: #ff3c6f;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
-  text-shadow: 0 0 12px rgba(255, 60, 111, 0.6), 0 0 24px rgba(0, 255, 255, 0.1);
-}
-
 .perfil-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.perfil-card {
+.perfil-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 1200px;
+  margin-bottom: 2rem;
+}
+
+.perfil-card {
+  flex: 1 1 350px;
   background: linear-gradient(145deg, #1e1e1e, #151515);
   border: 2px solid #6c1b2e;
   border-radius: 14px;
   box-shadow: 0 0 15px rgba(255, 60, 111, 0.1);
+  padding: 2rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s;
 }
 
@@ -37,25 +30,12 @@
   border-color: #ff3c6f;
 }
 
-.contenido {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contenido h2 {
-  margin: 0;
+.titulo-seccion {
   color: #ff6b92;
   font-size: 1.8rem;
   text-shadow: 0 0 6px rgba(255, 107, 146, 0.5);
   text-align: center;
-}
-
-.contenido p {
-  margin: 0;
-  color: #ccc;
-  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 label {
@@ -64,7 +44,7 @@ label {
   font-weight: bold;
   color: #ff3c6f;
   font-size: 0.95rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
 }
 
 input[type="text"],
@@ -91,7 +71,7 @@ input:focus {
 }
 
 .boton {
-  margin-top: 1.5rem;
+  margin-top: 1.2rem;
   padding: 0.8rem 1.2rem;
   border: none;
   border-radius: 10px;
@@ -108,52 +88,98 @@ input:focus {
   background-color: #e73362;
   box-shadow: 0 0 10px rgba(255, 60, 111, 0.5);
 }
-/* Estilos para la sección de cambiar la contraseña */
-.cambiar-contrasena {
-  margin-top: 2rem;
-  padding: 2rem;
-  background-color: #2c2c2c;
-  border-radius: 8px;
-  border: 2px solid #ff3c6f;
-}
 
-.cambiar-contrasena h2 {
-  color: #ff3c6f;
-  font-size: 1.8rem;
-  text-align: center;
-}
-
-.cambiar-contrasena label {
+.campo-password {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  font-weight: bold;
-  color: #ff3c6f;
-  font-size: 0.95rem;
-  margin-bottom: 0.8rem;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.cambiar-contrasena input {
-  padding: 0.6rem;
+.campo-password input {
+  width: 100%;
+  padding: 0.6rem 2.5rem 0.6rem 0.6rem;
   border: 1px solid #333;
   border-radius: 8px;
   background-color: #1a1a1a;
   color: #fff;
-  margin-bottom: 1rem;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.cambiar-contrasena button {
-  background-color: #ff3c6f;
-  color: white;
-  padding: 0.8rem 1.2rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
+.campo-password input:focus {
+  outline: none;
+  border-color: #ff3c6f;
+  box-shadow: 0 0 8px rgba(255, 60, 111, 0.6);
 }
 
-.cambiar-contrasena button:hover {
-  background-color: #e73362;
-  box-shadow: 0 0 10px rgba(255, 60, 111, 0.5);
+.toggle-password {
+  position: absolute;
+  right: 0.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #ff3c6f;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0;
 }
+
+/* Listas de juegos */
+.listas-juegos {
+  max-width: 1200px;
+  width: 100%;
+  background: #1a1a1a;
+  border: 2px solid #6c1b2e;
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(255, 60, 111, 0.1);
+}
+
+.listas-juegos h2 {
+  color: #ff6b92;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.listas-juegos ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.listas-juegos li {
+  padding: 0.4rem 0.6rem;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid #6c1b2e;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+:host {
+  display: block;
+  padding: 2rem;
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+.titulo {
+  text-align: center;
+  color: #ff3c6f;              /* Rosa neón */
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 12px rgba(255, 60, 111, 0.6), 0 0 24px rgba(0, 255, 255, 0.1);
+}
+
+.invalid-feedback {
+  color: #ff6b92;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+

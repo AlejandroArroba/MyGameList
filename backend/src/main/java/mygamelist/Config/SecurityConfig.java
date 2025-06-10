@@ -16,6 +16,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.http.HttpMethod;
+
 @Configuration
 public class SecurityConfig {
 
@@ -35,10 +37,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login", "/api/register", "/api/forgot-password").permitAll()
                         .requestMatchers("/api/juegos/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/comentarios/**").permitAll() // ✅ GET permitido
+                        .requestMatchers(HttpMethod.POST, "/api/comentarios/**").authenticated() // ✅ POST requiere login
                         .requestMatchers("/api/perfil").authenticated()
                         .anyRequest().authenticated()
                 )
-
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Desactiva el manejo de sesión
                 .authenticationProvider(daoAuthenticationProvider()) // Proveedor de autenticación
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) // Filtro JWT antes de la autenticación estándar

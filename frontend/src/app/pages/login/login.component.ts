@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';  // Importa CommonModule aquí
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
   standalone: true,  // Si es un componente standalone, usa este decorador
@@ -16,6 +15,7 @@ export class LoginComponent {
   email = '';
   password = '';
   error = '';
+  mostrarPassword: boolean = false;
 
   constructor(
     private authService: AuthService,

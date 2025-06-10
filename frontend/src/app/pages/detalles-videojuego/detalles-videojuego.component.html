@@ -24,77 +24,109 @@
             @if (juego.genres?.length) {
               <div>
                 <p><strong>Géneros:</strong>
-                @for (genero of juego.genres; track genero; let last = $last) {
-                  <span>
+                  @for (genero of juego.genres; track genero; let last = $last) {
+                    <span>
                     {{ genero.name }}@if (!last) {
-                    <span>, </span>
-                  }
+                      <span>, </span>
+                    }
                 </span>
+                  }
+                </p>
+              </div>
+            }
+          </div>
+        }
+        @if (juego.platforms?.length) {
+          <div>
+            <p><strong>Plataformas:</strong></p>
+            <ul>
+              @for (plataforma of juego.platforms; track plataforma) {
+                <li>
+                  {{ plataforma.platform.name }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+    @if (juego.developers?.length || juego.publishers?.length) {
+      <div class="fila-datos">
+        @if (juego.developers?.length) {
+          <div class="seccion">
+            <p><strong>Desarrolladores:</strong>
+              @for (dev of juego.developers; track dev; let last = $last) {
+                <span>
+            {{ dev.name }}@if (!last) {
+                  <span>, </span>
+                }
+        </span>
+              }
+            </p>
+          </div>
+        }
+        @if (juego.publishers?.length) {
+          <div class="seccion">
+            <p><strong>Distribuidoras:</strong>
+              @for (pub of juego.publishers; track pub; let last = $last) {
+                <span>
+        {{ pub.name }}@if (!last) {
+                  <span>, </span>
+                }
+    </span>
               }
             </p>
           </div>
         }
       </div>
     }
-    @if (juego.platforms?.length) {
-      <div>
-        <p><strong>Plataformas:</strong></p>
-        <ul>
-          @for (plataforma of juego.platforms; track plataforma) {
-            <li>
-              {{ plataforma.platform.name }}
-            </li>
-          }
-        </ul>
+    @if (juego.description_raw) {
+      <div class="sinopsis">
+        <p><strong>Sinopsis:</strong></p>
+        <p [ngClass]="{ 'clamp-texto': !mostrarSinopsisCompleta }">
+          {{ juego.description_raw }}
+        </p>
+        <button class="btn-toggle" (click)="mostrarSinopsisCompleta = !mostrarSinopsisCompleta">
+          {{ mostrarSinopsisCompleta ? 'Mostrar menos' : 'Mostrar más' }}
+        </button>
       </div>
     }
+    <div class="acciones-guardar">
+      <button (click)="guardarJuego('gustado')">❤️ Me ha gustado</button>
+      <button (click)="guardarJuego('pendiente')">📌 Pendiente</button>
+      <button (click)="guardarJuego('abandonado')">❌ Abandonado</button>
+    </div>
+
+    <!-- SECCIÓN DE COMENTARIOS -->
+    <hr />
+    <div class="comentarios-section">
+      <h2>Comentarios</h2>
+
+      <!-- Mostrar el form SOLO si es PREMIUM -->
+      <form *ngIf="esPremium" (ngSubmit)="enviarComentario()" class="form-comentario">
+        <textarea [(ngModel)]="nuevoComentario" name="comentario" rows="3" placeholder="Escribe tu comentario..." required></textarea>
+        <button type="submit" class="boton-comentar">Comentar</button>
+      </form>
+
+      <!-- Si NO es premium, mostrar mensaje -->
+      <div *ngIf="!esPremium" class="mensaje-no-premium">
+        Solo los usuarios PREMIUM pueden dejar comentarios. 🚫
+      </div>
+
+      <div *ngIf="cargandoComentarios">Cargando comentarios...</div>
+      <div *ngIf="!cargandoComentarios && comentarios.length === 0" class="sin-comentarios">
+        Sé el primero en comentar sobre este juego.
+      </div>
+
+      <ul class="lista-comentarios" *ngIf="comentarios.length > 0">
+        <li *ngFor="let c of comentarios">
+          <div class="comentario-meta">
+            <strong>{{ c.nombreUsuario }}</strong> dijo el
+            <span class="comentario-fecha">{{ c.fecha | date:'short' }}</span>:
+          </div>
+          <div class="comentario-texto">{{ c.comentario }}</div>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
-@if (juego.developers?.length || juego.publishers?.length) {
-  <div class="fila-datos">
-    @if (juego.developers?.length) {
-      <div class="seccion">
-        <p><strong>Desarrolladores:</strong>
-        @for (dev of juego.developers; track dev; let last = $last) {
-          <span>
-            {{ dev.name }}@if (!last) {
-            <span>, </span>
-          }
-        </span>
-      }
-    </p>
-  </div>
-}
-@if (juego.publishers?.length) {
-  <div class="seccion">
-    <p><strong>Distribuidoras:</strong>
-    @for (pub of juego.publishers; track pub; let last = $last) {
-      <span>
-        {{ pub.name }}@if (!last) {
-        <span>, </span>
-      }
-    </span>
-  }
-</p>
-</div>
-}
-</div>
-}
-@if (juego.description_raw) {
-  <div class="sinopsis">
-    <p><strong>Sinopsis:</strong></p>
-    <p [ngClass]="{ 'clamp-texto': !mostrarSinopsisCompleta }">
-      {{ juego.description_raw }}
-    </p>
-    <button class="btn-toggle" (click)="mostrarSinopsisCompleta = !mostrarSinopsisCompleta">
-      {{ mostrarSinopsisCompleta ? 'Mostrar menos' : 'Mostrar más' }}
-    </button>
-  </div>
-}
-<div class="acciones-guardar">
-  <button (click)="guardarJuego('gustado')">❤️ Me ha gustado</button>
-  <button (click)="guardarJuego('pendiente')">📌 Pendiente</button>
-  <button (click)="guardarJuego('abandonado')">❌ Abandonado</button>
-</div>
-</div>
 }

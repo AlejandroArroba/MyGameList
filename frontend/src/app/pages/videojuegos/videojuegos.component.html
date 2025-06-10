@@ -1,0 +1,47 @@
+<div class="container">
+  <app-header></app-header>
+
+  <h1 class="titulo">Lista de Videojuegos</h1>
+
+  <!-- Buscador -->
+  <div class="buscador-container">
+    <input
+      type="text"
+      [(ngModel)]="busqueda"
+      (input)="buscarJuegos()"
+      (keyup.enter)="buscarExacto()"
+      placeholder="Buscar videojuegos..."
+      class="buscador-input"
+    />
+  </div>
+
+  <!-- Grid de juegos -->
+  <div class="grid">
+    @for (juego of juegos; track juego) {
+      <div class="card" [routerLink]="['/juegos', juego.id]" style="cursor: pointer;">
+        <img [src]="juego.backgroundImage" alt="{{ juego.name }}" />
+        <div class="contenido">
+          <h2>{{ juego.name }}</h2>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Paginación -->
+  <div class="paginacion">
+    <button (click)="irAPagina(1)" [disabled]="paginaActual === 1">«</button>
+    <button (click)="anteriorPagina()" [disabled]="paginaActual === 1">‹</button>
+
+    @for (pagina of paginas; track pagina) {
+      <button
+        (click)="irAPagina(pagina)"
+        [class.activa]="pagina === paginaActual"
+      >
+        {{ pagina }}
+      </button>
+    }
+
+    <button (click)="siguientePagina()" [disabled]="paginaActual === totalPaginas">›</button>
+    <button (click)="irAPagina(totalPaginas)" [disabled]="paginaActual === totalPaginas">»</button>
+  </div>
+</div>
