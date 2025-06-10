@@ -1,34 +1,30 @@
 package mygamelist.dtos;
 
 public class GuardarJuegoDTO {
-    private Long usuarioId;
-    private Long juegoId;
+    private Integer juegoId;
     private String estado;
     private int puntuacion;
+    private String nombre;
+    private String imagenUrl;
 
-    public GuardarJuegoDTO() {
+    public GuardarJuegoDTO(String nombre, String imagenUrl) {
+        this.nombre = nombre;
+        this.imagenUrl = imagenUrl;
     }
 
-    public GuardarJuegoDTO(Long usuarioId, Long juegoId, String estado, int puntuacion) {
-        this.usuarioId = usuarioId;
+    public GuardarJuegoDTO(Integer juegoId, String estado, int puntuacion, String nombre, String imagenUrl) {
         this.juegoId = juegoId;
         this.estado = estado;
         this.puntuacion = puntuacion;
+        this.nombre = nombre;
+        this.imagenUrl = imagenUrl;
     }
 
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public Long getJuegoId() {
+    public Integer getJuegoId() {
         return juegoId;
     }
 
-    public void setJuegoId(Long juegoId) {
+    public void setJuegoId(Integer juegoId) {
         this.juegoId = juegoId;
     }
 
@@ -46,5 +42,21 @@ public class GuardarJuegoDTO {
 
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
+    }
+
+    public String getnombre() {
+        return nombre;
+    }
+
+    public void setnombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
 }

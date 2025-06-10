@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { LoginRequest } from '../../models/login-request';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';  // Importa CommonModule aquí
+import { AuthService } from '../../services/auth.service';
+import { Router, RouterLink } from '@angular/router';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
-  standalone: true,
+  standalone: true,  // Si es un componente standalone, usa este decorador
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'], // 👈 aquí el cambio
-  imports: [CommonModule, FormsModule, RouterLink]
+  styleUrls: ['./login.component.css'],
+  imports: [FormsModule, CommonModule, RouterLink]  // Asegúrate de incluir CommonModule
 })
 export class LoginComponent {
   email = '';
-  contrasena = '';
+  password = '';
   error = '';
 
   constructor(
     private authService: AuthService,
-    private router: Router // 👈 útil si vas a redirigir después del login
+    private router: Router
   ) {}
 
   irARegistro(): void {
@@ -27,16 +27,15 @@ export class LoginComponent {
   }
 
   iniciarSesion(): void {
-    const request: LoginRequest = {
+    const request = {
       email: this.email,
-      password: this.contrasena
+      password: this.password
     };
 
     this.authService.login(request).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
-        localStorage.setItem('nombreUsuario', response.nombreUsuario); // 👈 nuevo
-        console.log('Token guardado:', response.token);
+        localStorage.setItem('nombreUsuario', response.nombreUsuario);
         this.router.navigate(['/home']);
       },
       error: (err) => {
@@ -44,6 +43,5 @@ export class LoginComponent {
         console.error(err);
       }
     });
-
   }
 }

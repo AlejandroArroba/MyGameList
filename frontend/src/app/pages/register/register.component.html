@@ -1,7 +1,9 @@
 <div class="register-container">
   <div class="register-card">
     <h2 class="titulo">Crear Cuenta</h2>
-    <form (ngSubmit)="registrar()">
+    <form (ngSubmit)="registrar()" #form="ngForm">
+
+      <!-- Nombre de Usuario -->
       <div class="form-group">
         <label for="nombreUsuario">Nombre de Usuario:</label>
         <input
@@ -10,9 +12,15 @@
           [(ngModel)]="nombreUsuario"
           name="nombreUsuario"
           required
+          #nombreUsuarioModel="ngModel"
+          class="form-control"
         />
+        <div *ngIf="nombreUsuarioModel.invalid && nombreUsuarioModel.touched" class="invalid-feedback">
+          El nombre de usuario es obligatorio.
+        </div>
       </div>
 
+      <!-- Email -->
       <div class="form-group">
         <label for="email">Email:</label>
         <input
@@ -21,9 +29,17 @@
           [(ngModel)]="email"
           name="email"
           required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          #emailModel="ngModel"
+          class="form-control"
         />
+        <div *ngIf="emailModel.invalid && emailModel.touched" class="invalid-feedback">
+          <div *ngIf="emailModel.errors?.['required']">El email es obligatorio.</div>
+          <div *ngIf="emailModel.errors?.['pattern']">El email debe tener el formato correcto.</div>
+        </div>
       </div>
 
+      <!-- Contraseña -->
       <div class="form-group">
         <label for="contrasena">Contraseña:</label>
         <input
@@ -32,18 +48,52 @@
           [(ngModel)]="contrasena"
           name="contrasena"
           required
+          minlength="8"
+          pattern=".*[A-Z].*"
+          #contrasenaModel="ngModel"
+          class="form-control"
         />
+        <div *ngIf="contrasenaModel.invalid && contrasenaModel.touched" class="invalid-feedback">
+          <div *ngIf="contrasenaModel.errors?.['required']">La contraseña es obligatoria.</div>
+          <div *ngIf="contrasenaModel.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</div>
+          <div *ngIf="contrasenaModel.errors?.['pattern']">La contraseña debe contener al menos una mayúscula.</div>
+        </div>
       </div>
 
-      <button type="submit" class="boton">Registrarse</button>
-
-      <div *ngIf="error" class="error">
-        {{ error }}
+      <!-- Confirmar Contraseña -->
+      <div class="form-group">
+        <label for="confirmContrasena">Confirmar Contraseña:</label>
+        <input
+          id="confirmContrasena"
+          type="password"
+          [(ngModel)]="confirmContrasena"
+          name="confirmContrasena"
+          required
+          #confirmContrasenaModel="ngModel"
+          class="form-control"
+        />
+        <div *ngIf="confirmContrasenaModel.invalid && confirmContrasenaModel.touched" class="invalid-feedback">
+          <div *ngIf="confirmContrasenaModel.errors?.['required']">Confirmar contraseña es obligatorio.</div>
+          <div *ngIf="confirmContrasenaModel.errors?.['pattern']">Las contraseñas no coinciden.</div>
+        </div>
       </div>
+
+      <div class="form-group">
+        <label for="rol">Rol:</label>
+        <select id="rol" name="rol" [(ngModel)]="rol" required>
+          <option value="USER">Usuario</option>
+          <option value="PREMIUM">Usuario Premium</option>
+        </select>
+      </div>
+
+      <button type="submit" [disabled]="form.invalid" class="boton">Registrarse</button>
+
+      <div *ngIf="error" class="error mt-3">{{ error }}</div>
+
+      <div *ngIf="exito" class="success mt-3">{{ exito }}</div>
 
       <div class="registro-link">
-        ¿Ya tienes una cuenta?
-        <a routerLink="/">Inicia sesión</a>
+        ¿Ya tienes una cuenta? <a routerLink="/">Inicia sesión</a>
       </div>
     </form>
   </div>

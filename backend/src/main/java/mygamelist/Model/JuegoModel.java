@@ -1,6 +1,7 @@
 package mygamelist.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import mygamelist.entities.Juego;
 
 public class JuegoModel {
 
@@ -20,6 +21,14 @@ public class JuegoModel {
         this.backgroundImage = backgroundImage;
         this.released = released;
         this.rating = rating;
+    }
+
+    public JuegoModel(Juego juego) {
+        this.id = juego.getId();
+        this.name = juego.getNombre();
+        this.backgroundImage = juego.getImagenUrl();
+        this.released = juego.getFechaLanzamiento() != null ? juego.getFechaLanzamiento().toString() : null;
+        this.rating = juego.getRatingRawg() != null ? juego.getRatingRawg().doubleValue() : 0.0;
     }
 
     public int getId() {

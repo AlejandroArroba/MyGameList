@@ -1,33 +1,74 @@
+<app-header></app-header>
 <h1 class="titulo">Mi Perfil</h1>
 
-<div class="perfil-wrapper" *ngIf="usuario">
-  <div class="perfil-card">
-    <div class="contenido">
-      <form (ngSubmit)="guardarCambios()">
-        <h2>{{ usuario.nombreUsuario }}</h2>
+<div *ngIf="usuario">
+  <div class="perfil-wrapper">
+    <div class="perfil-card">
+      <div class="contenido">
+        <!-- Formulario para editar perfil -->
+        <form (ngSubmit)="guardarCambios()">
+          <label>
+            Nombre de Usuario:
+            <input type="text" [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required />
+          </label>
+          <label>
+            Nombre:
+            <input type="text" [(ngModel)]="usuario.nombre" name="nombre" required />
+          </label>
+          <label>
+            Apellidos:
+            <input type="text" [(ngModel)]="usuario.apellidos" name="apellidos" required />
+          </label>
+          <label>
+            Teléfono:
+            <input type="text" [(ngModel)]="usuario.telefono" name="telefono" />
+          </label>
+          <label>
+            Email:
+            <input type="text" [value]="usuario.email" disabled />
+          </label>
+          <button type="submit" class="boton">Guardar cambios</button>
+        </form>
 
-        <label>
-          Nombre:
-          <input type="text" [(ngModel)]="usuario.nombre" name="nombre" required />
-        </label>
+        <!-- Sección para cambiar la contraseña -->
+        <div class="cambiar-contrasena">
+          <h2 class="titulo-seccion">Cambiar Contraseña</h2>
+          <form (ngSubmit)="cambiarContrasena()">
+            <label for="currentPassword">Contraseña Actual</label>
+            <input
+              type="password"
+              id="currentPassword"
+              [(ngModel)]="currentPassword"
+              name="currentPassword"
+              required
+              placeholder="Ingresa tu contraseña actual"
+            />
+            <label for="newPassword">Nueva Contraseña</label>
+            <input
+              type="password"
+              id="newPassword"
+              [(ngModel)]="newPassword"
+              name="newPassword"
+              required
+              placeholder="Ingresa tu nueva contraseña"
+            />
+            <button type="submit" class="boton">Cambiar Contraseña</button>
+          </form>
+        </div>
 
-        <label>
-          Apellidos:
-          <input type="text" [(ngModel)]="usuario.apellidos" name="apellidos" required />
-        </label>
-
-        <label>
-          Teléfono:
-          <input type="text" [(ngModel)]="usuario.telefono" name="telefono" />
-        </label>
-
-        <label>
-          Email:
-          <input type="text" [value]="usuario.email" disabled />
-        </label>
-
-        <button type="submit" class="boton">Guardar cambios</button>
-      </form>
+        <h2 class="titulo-seccion">🎮 Juegos que me han gustado</h2>
+        <ul>
+          <li *ngFor="let juego of gustados">{{ juego.nombre }}</li>
+        </ul>
+        <h2 class="titulo-seccion">🕒 Juegos pendientes</h2>
+        <ul>
+          <li *ngFor="let juego of pendientes">{{ juego.nombre }}</li>
+        </ul>
+        <h2 class="titulo-seccion">🚫 Juegos abandonados</h2>
+        <ul>
+          <li *ngFor="let juego of abandonados">{{ juego.nombre }}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

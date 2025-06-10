@@ -31,11 +31,13 @@ public class AuthService {
             throw new RuntimeException("El email ya está registrado");
         }
 
+        String rol = request.getRol() != null ? request.getRol() : "USER";
+
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(request.getNombreUsuario());
         usuario.setEmail(request.getEmail());
         usuario.setPassword(passwordEncoder.encode(request.getContrasena()));
-        usuario.setRol("USER");
+        usuario.setRol(rol);
 
         usuarioRepository.save(usuario);
 

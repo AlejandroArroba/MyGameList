@@ -48,4 +48,14 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    public String generateRecoveryToken(Usuario usuario) {
+        return Jwts.builder()
+                .setSubject(usuario.getEmail()) // Email como el sujeto del token
+                .setIssuedAt(new Date(System.currentTimeMillis())) // Fecha de emisión
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 15)) // Token válido por 15 minutos
+                .claim("recovery", true) // Indicamos que es un token de recuperación
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // Firma con la clave secreta
+                .compact();
+    }
 }

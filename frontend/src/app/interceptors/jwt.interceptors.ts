@@ -1,29 +1,24 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptorFn, HttpHandlerFn } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable()
-export class JwtInterceptor implements HttpInterceptor {
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
+// Definición del interceptor como función
+export const jwtInterceptor: HttpInterceptorFn = (request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
+  let token = null;
 
-      if (token) {
-        const cloned = req.clone({
-          headers: req.headers.set('Authorization', `Bearer ${token}`)
-        });
-        return next.handle(cloned);
-      }
-    }
-
-    return next.handle(req);
+  // Verifica si está en el lado del cliente (navegador)
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
   }
-}
+
+  // Si hay un token, lo agrega a los headers de la solicitud
+  if (token) {
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  // Llama al siguiente manejador de la solicitud HTTP
+  return next(request); // Uso de next con el request clonado
+};

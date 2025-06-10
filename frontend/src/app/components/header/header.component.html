@@ -5,8 +5,11 @@
     </a>
   </div>
 
+  <div class="perfil-centro">
+    <a routerLink="/perfil" routerLinkActive="activo" class="nombre-usuario">{{ nombreUsuario }}</a>
+  </div>
+
   <div class="user-actions">
-    <a routerLink="/perfil" routerLinkActive="activo">{{ nombreUsuario }}</a>
     <button class="cerrar-sesion" (click)="logout()">Cerrar sesión</button>
   </div>
 </header>

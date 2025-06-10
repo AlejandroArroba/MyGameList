@@ -1,0 +1,100 @@
+<app-header></app-header>
+
+@if (juego) {
+  <div class="detalle-container">
+    <h1 class="titulo">{{ juego.name }}</h1>
+    <div class="info-principal">
+      <img [src]="juego.background_image" alt="{{ juego.name }}" class="imagen-principal" />
+      <div class="datos-principales">
+        <div class="fila-datos">
+          <p><strong>Fecha de lanzamiento:</strong> {{ juego.released }}</p>
+          <p><strong>Rating:</strong> {{ juego.rating }}</p>
+        </div>
+        <div class="fila-datos">
+          <p><strong>Metacritic:</strong> {{ juego.metacritic || 'N/A' }}</p>
+          <p><strong>Tiempo de juego:</strong> {{ juego.playtime }} horas</p>
+        </div>
+        @if (juego.esrb_rating || juego.genres?.length) {
+          <div class="fila-datos">
+            @if (juego.esrb_rating) {
+              <div>
+                <p><strong>Clasificación ESRB:</strong> {{ juego.esrb_rating.name }}</p>
+              </div>
+            }
+            @if (juego.genres?.length) {
+              <div>
+                <p><strong>Géneros:</strong>
+                @for (genero of juego.genres; track genero; let last = $last) {
+                  <span>
+                    {{ genero.name }}@if (!last) {
+                    <span>, </span>
+                  }
+                </span>
+              }
+            </p>
+          </div>
+        }
+      </div>
+    }
+    @if (juego.platforms?.length) {
+      <div>
+        <p><strong>Plataformas:</strong></p>
+        <ul>
+          @for (plataforma of juego.platforms; track plataforma) {
+            <li>
+              {{ plataforma.platform.name }}
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</div>
+@if (juego.developers?.length || juego.publishers?.length) {
+  <div class="fila-datos">
+    @if (juego.developers?.length) {
+      <div class="seccion">
+        <p><strong>Desarrolladores:</strong>
+        @for (dev of juego.developers; track dev; let last = $last) {
+          <span>
+            {{ dev.name }}@if (!last) {
+            <span>, </span>
+          }
+        </span>
+      }
+    </p>
+  </div>
+}
+@if (juego.publishers?.length) {
+  <div class="seccion">
+    <p><strong>Distribuidoras:</strong>
+    @for (pub of juego.publishers; track pub; let last = $last) {
+      <span>
+        {{ pub.name }}@if (!last) {
+        <span>, </span>
+      }
+    </span>
+  }
+</p>
+</div>
+}
+</div>
+}
+@if (juego.description_raw) {
+  <div class="sinopsis">
+    <p><strong>Sinopsis:</strong></p>
+    <p [ngClass]="{ 'clamp-texto': !mostrarSinopsisCompleta }">
+      {{ juego.description_raw }}
+    </p>
+    <button class="btn-toggle" (click)="mostrarSinopsisCompleta = !mostrarSinopsisCompleta">
+      {{ mostrarSinopsisCompleta ? 'Mostrar menos' : 'Mostrar más' }}
+    </button>
+  </div>
+}
+<div class="acciones-guardar">
+  <button (click)="guardarJuego('gustado')">❤️ Me ha gustado</button>
+  <button (click)="guardarJuego('pendiente')">📌 Pendiente</button>
+  <button (click)="guardarJuego('abandonado')">❌ Abandonado</button>
+</div>
+</div>
+}

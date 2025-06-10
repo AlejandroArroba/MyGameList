@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `<router-outlet></router-outlet>`
 })
 export class AppComponent implements OnInit {
@@ -15,3 +15,5 @@ export class AppComponent implements OnInit {
     }
   }
 }
+
+export default AppComponent;

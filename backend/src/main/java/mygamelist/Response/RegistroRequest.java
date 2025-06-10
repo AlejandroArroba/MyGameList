@@ -10,6 +10,7 @@ public class RegistroRequest {
     private String nombreUsuario;
     private String email;
     private String contrasena;
+    private String rol;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -33,5 +34,13 @@ public class RegistroRequest {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

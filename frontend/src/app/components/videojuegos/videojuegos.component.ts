@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // ✅ Añade esto
+ // ✅ Añade esto
 import { FormsModule } from '@angular/forms'; // ✅ Si usas ngModel
 import { JuegoService } from '../../services/juego.service';
 import { Juego } from '../../models/juego.model';
 import {HeaderComponent} from '../header/header.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-videojuegos',
   standalone: true, // ✅ si no lo tienes ya
-  imports: [CommonModule, FormsModule, HeaderComponent], // ✅ aquí se importa todo lo necesario
+  imports: [FormsModule, HeaderComponent, RouterLink],
   templateUrl: './videojuegos.component.html',
   styleUrls: ['./videojuegos.component.css']
 })

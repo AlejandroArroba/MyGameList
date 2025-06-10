@@ -1,9 +1,14 @@
 package mygamelist.dtos;
 
 public class UpdatePerfilDTO {
+    private String nombreUsuario;
     private String nombre;
     private String apellidos;
     private String telefono;
+
+    public String getNombreUsuario() {return nombreUsuario;}
+
+    public void setNombreUsuario(String nombreUsuario) {this.nombreUsuario = nombreUsuario;}
 
     public String getNombre() {
         return nombre;
