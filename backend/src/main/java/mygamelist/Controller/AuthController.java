@@ -125,14 +125,17 @@ public class AuthController {
         PerfilDTO dto = new PerfilDTO(
                 usuario.getNombreUsuario(),
                 usuario.getEmail(),
+                usuario.getNombre(),          // nuevo
+                usuario.getApellidos(),       // nuevo
+                usuario.getTelefono(),        // nuevo
                 gustados,
                 pendientes,
                 abandonados
         );
 
+
         return ResponseEntity.ok(dto);
     }
-
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String email) {
