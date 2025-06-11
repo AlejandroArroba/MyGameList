@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/juegos")
@@ -41,27 +42,23 @@ public class JuegoController {
     }
 
     @PostMapping("/guardar")
-    public ResponseEntity<String> guardarJuego(@RequestBody GuardarJuegoDTO dto, Principal principal) {
+    public ResponseEntity<?> guardarJuego(@RequestBody GuardarJuegoDTO dto, Principal principal) {
+        System.out.println("Estado recibido: '" + dto.getEstado() + "'");
         String emailUsuario = principal.getName();
-        System.out.println("Email del usuario autenticado: " + emailUsuario);  // Para depuración
+        Usuario usuario = usuarioRepository.findByEmail(emailUsuario).orElse(null);
 
-        if (emailUsuario == null || emailUsuario.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario no autenticado");
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("error", "Usuario no autenticado"));
         }
 
-        Integer juegoIdInteger = dto.getJuegoId().intValue();
+        try {
+            juegoService.guardarJuegoUsuario(dto, usuario);
 
-        boolean guardado = juegoService.guardarJuegoUsuarioDesdeEmail(
-                emailUsuario,
-                juegoIdInteger.longValue(),
-                dto.getEstado(),
-                dto.getPuntuacion()
-        );
-
-        if (guardado) {
-            return ResponseEntity.ok("Juego guardado correctamente");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al guardar el juego");
+            return ResponseEntity.ok(Map.of("mensaje", "Juego guardado correctamente"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", e.getMessage()));
         }
     }
 

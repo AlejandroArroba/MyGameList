@@ -81,19 +81,30 @@
     </div>
   </div>
 
-  <!-- Sección de listas de juegos -->
   <div class="listas-juegos">
-    <h2 class="titulo-seccion">🎮 Juegos que me han gustado</h2>
+    <h2 class="titulo-seccion">Juegos que me han gustado</h2>
     <ul>
-      <li *ngFor="let juego of gustados">{{ juego.nombre }}</li>
+      <li *ngFor="let juego of gustados">
+        <img [src]="juego.backgroundImage || 'assets/imagen-placeholder.png'"
+             alt="{{ juego.name }}"/>
+        {{ juego.name }}
+      </li>
     </ul>
-    <h2 class="titulo-seccion">🕒 Juegos pendientes</h2>
+    <h2 class="titulo-seccion">Juegos pendientes</h2>
     <ul>
-      <li *ngFor="let juego of pendientes">{{ juego.nombre }}</li>
+      <li *ngFor="let juego of pendientes">
+        <img [src]="juego.backgroundImage || 'assets/imagen-placeholder.png'"
+             alt="{{ juego.name }}"/>
+        {{ juego.name }}
+      </li>
     </ul>
-    <h2 class="titulo-seccion">🚫 Juegos abandonados</h2>
+    <h2 class="titulo-seccion">Juegos abandonados</h2>
     <ul>
-      <li *ngFor="let juego of abandonados">{{ juego.nombre }}</li>
+      <li *ngFor="let juego of abandonados">
+        <img [src]="juego.backgroundImage || 'assets/imagen-placeholder.png'"
+             alt="{{ juego.name }}"/>
+        {{ juego.name }}
+      </li>
     </ul>
   </div>
 </div>

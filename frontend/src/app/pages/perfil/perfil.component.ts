@@ -5,6 +5,7 @@ import { HeaderComponent } from '../header/header.component';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   standalone: true,
   selector: 'app-perfil',
@@ -45,6 +46,8 @@ export class PerfilComponent implements OnInit {
   cargarJuegos(estado: string): void {
     this.http.get<any[]>(`http://localhost:8080/api/juegos/mis-juegos/${estado}`)
       .subscribe(juegos => {
+        console.log(`📦 Juegos recibidos para estado ${estado}:`, juegos); // <-- AÑADE ESTE LOG
+
         if (estado === 'gustado') this.gustados = juegos;
         if (estado === 'pendiente') this.pendientes = juegos;
         if (estado === 'abandonado') this.abandonados = juegos;

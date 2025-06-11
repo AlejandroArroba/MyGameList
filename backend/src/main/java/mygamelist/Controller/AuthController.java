@@ -1,12 +1,15 @@
 package mygamelist.controller;
 
+import mygamelist.dtos.PerfilDTO;
 import mygamelist.dtos.UpdatePerfilDTO;
 import mygamelist.entities.Usuario;
+import mygamelist.model.JuegoModel;
 import mygamelist.repositories.UsuarioRepository;
 import mygamelist.response.AuthResponse;
 import mygamelist.response.LoginRequest;
 import mygamelist.response.RegistroRequest;
 import mygamelist.service.AuthService;
+import mygamelist.service.JuegoService;
 import mygamelist.service.JwtService;  // Asegúrate de importar el JwtService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,17 +31,19 @@ public class AuthController {
     private final AuthService authService;
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;  // Asegúrate de declarar el JwtService
+    private final JwtService jwtService;
+    private final JuegoService juegoService;
 
     @Autowired
     public AuthController(AuthService authService,
                           UsuarioRepository usuarioRepository,
                           PasswordEncoder passwordEncoder,
-                          JwtService jwtService) {  // Asegúrate de inyectar el JwtService
+                          JwtService jwtService, JuegoService juegoService) {  // Asegúrate de inyectar el JwtService
         this.authService = authService;
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;  // Inicializa el JwtService
+        this.juegoService = juegoService;
     }
 
     @PostMapping("/register")
@@ -107,12 +113,26 @@ public class AuthController {
     }
 
     @GetMapping("/perfil")
-    public ResponseEntity<Usuario> obtenerPerfil(Principal principal) {
+    public ResponseEntity<PerfilDTO> obtenerPerfil(Principal principal) {
         String email = principal.getName();
-        return usuarioRepository.findByEmail(email)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow();
+
+        // Obtener listas de juegos por estado
+        List<JuegoModel> gustados = juegoService.obtenerJuegosPorEstado(email, "gustado");
+        List<JuegoModel> pendientes = juegoService.obtenerJuegosPorEstado(email, "pendiente");
+        List<JuegoModel> abandonados = juegoService.obtenerJuegosPorEstado(email, "abandonado");
+
+        PerfilDTO dto = new PerfilDTO(
+                usuario.getNombreUsuario(),
+                usuario.getEmail(),
+                gustados,
+                pendientes,
+                abandonados
+        );
+
+        return ResponseEntity.ok(dto);
     }
+
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String email) {

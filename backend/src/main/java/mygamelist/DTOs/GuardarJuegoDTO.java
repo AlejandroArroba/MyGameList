@@ -3,16 +3,18 @@ package mygamelist.dtos;
 public class GuardarJuegoDTO {
     private Integer juegoId;
     private String estado;
-    private int puntuacion;
+    private Integer puntuacion;
     private String nombre;
     private String imagenUrl;
+
+    public GuardarJuegoDTO() { }
 
     public GuardarJuegoDTO(String nombre, String imagenUrl) {
         this.nombre = nombre;
         this.imagenUrl = imagenUrl;
     }
 
-    public GuardarJuegoDTO(Integer juegoId, String estado, int puntuacion, String nombre, String imagenUrl) {
+    public GuardarJuegoDTO(Integer juegoId, String estado, Integer puntuacion, String nombre, String imagenUrl) {
         this.juegoId = juegoId;
         this.estado = estado;
         this.puntuacion = puntuacion;
@@ -36,19 +38,19 @@ public class GuardarJuegoDTO {
         this.estado = estado;
     }
 
-    public int getPuntuacion() {
+    public Integer getPuntuacion() {
         return puntuacion;
     }
 
-    public void setPuntuacion(int puntuacion) {
+    public void setPuntuacion(Integer puntuacion) {
         this.puntuacion = puntuacion;
     }
 
-    public String getnombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setnombre(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 

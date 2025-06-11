@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
- // ✅ Añade esto
-import { FormsModule } from '@angular/forms'; // ✅ Si usas ngModel
+import { FormsModule } from '@angular/forms';
 import { JuegoService } from '../../services/juego.service';
-import { Juego } from '../../models/juego.model';
-import {HeaderComponent} from '../header/header.component';
-import {RouterLink} from '@angular/router';
+import { JuegoRawg } from '../../models/juegoRawg.model';
+import { HeaderComponent } from '../header/header.component';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-videojuegos',
-  standalone: true, // ✅ si no lo tienes ya
-  imports: [FormsModule, HeaderComponent, RouterLink],
+  standalone: true,
+  imports: [CommonModule, FormsModule, HeaderComponent, RouterLink],
   templateUrl: './videojuegos.component.html',
   styleUrls: ['./videojuegos.component.css']
 })
 export class VideojuegosComponent implements OnInit {
-  juegos: Juego[] = [];
+  juegos: JuegoRawg[] = [];
   busqueda: string = '';
   paginaActual: number = 1;
   totalPaginas: number = 30;
@@ -27,13 +27,12 @@ export class VideojuegosComponent implements OnInit {
   }
 
   generarPaginas(): void {
-    const visiblePages = 5; // Cambia esto si quieres más o menos botones visibles
+    const visiblePages = 5;
     const half = Math.floor(visiblePages / 2);
 
     let start = this.paginaActual - half;
     let end = this.paginaActual + half;
 
-    // Ajustes para no salirte de los límites
     if (start < 1) {
       end += 1 - start;
       start = 1;
@@ -49,7 +48,7 @@ export class VideojuegosComponent implements OnInit {
   }
 
   obtenerJuegos(pagina: number): void {
-    this.juegoService.obtenerJuegos(pagina).subscribe({
+    this.juegoService.obtenerJuegosDesdeRawg(pagina).subscribe({
       next: (data) => {
         this.juegos = data;
         this.paginaActual = pagina;
@@ -80,7 +79,7 @@ export class VideojuegosComponent implements OnInit {
     if (query === '') {
       this.obtenerJuegos(1);
     } else {
-      this.juegoService.buscarJuegos(query, false).subscribe({
+      this.juegoService.buscarJuegosEnRawg(query, false).subscribe({
         next: (data) => {
           this.juegos = data;
           this.totalPaginas = 1;
@@ -95,7 +94,7 @@ export class VideojuegosComponent implements OnInit {
   buscarExacto(): void {
     const query = this.busqueda.trim();
     if (query !== '') {
-      this.juegoService.buscarJuegos(query, true).subscribe({
+      this.juegoService.buscarJuegosEnRawg(query, true).subscribe({
         next: (data) => {
           this.juegos = data;
           this.totalPaginas = 1;
@@ -105,5 +104,9 @@ export class VideojuegosComponent implements OnInit {
         error: (err) => console.error('Error al buscar exacto', err)
       });
     }
+  }
+
+  trackJuego(index: number, juego: JuegoRawg): number {
+    return juego.id;
   }
 }

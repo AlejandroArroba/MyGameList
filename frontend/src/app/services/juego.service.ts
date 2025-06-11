@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, map, throwError} from 'rxjs';
-import { Juego } from '../models/juego.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, map, throwError } from 'rxjs';
+import { Juego } from '../models/juego.model';          // Para juegos de tu base de datos
+import { JuegoRawg } from '../models/juegoRawg.model';  // Para juegos de RAWG
 
 @Injectable({
   providedIn: 'root'
@@ -12,46 +13,48 @@ export class JuegoService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerJuegos(pagina: number): Observable<Juego[]> {
-    return this.http.get<any[]>(`${this.apiUrl}?page=${pagina}`).pipe(
-      map((juegos: any[]) =>
-        juegos.map(juego => ({
+  // ✅ Obtener juegos de RAWG (para VideojuegosComponent)
+  obtenerJuegosDesdeRawg(pagina: number): Observable<JuegoRawg[]> {
+    return this.http.get<any>(`https://api.rawg.io/api/games?key=${this.rawgApiKey}&page=${pagina}`).pipe(
+      map((response: any) =>
+        response.results.map((juego: any) => ({
           id: juego.id,
           name: juego.name,
           released: juego.released,
-          backgroundImage: juego.backgroundImage ?? juego.background_image,
+          background_image: juego.background_image,
           rating: juego.rating
         }))
       )
     );
   }
 
-  buscarJuegos(query: string, exacto: boolean = false): Observable<Juego[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/buscar?query=${encodeURIComponent(query)}&exacto=${exacto}`).pipe(
-      map((juegos: any[]) =>
-        juegos.map(juego => ({
+  // ✅ Buscar juegos en RAWG
+  buscarJuegosEnRawg(query: string, exacto: boolean = false): Observable<JuegoRawg[]> {
+    const searchUrl = `https://api.rawg.io/api/games?key=${this.rawgApiKey}&search=${encodeURIComponent(query)}&search_exact=${exacto}`;
+    return this.http.get<any>(searchUrl).pipe(
+      map((response: any) =>
+        response.results.map((juego: any) => ({
           id: juego.id,
           name: juego.name,
           released: juego.released,
-          backgroundImage: juego.backgroundImage ?? juego.background_image,
+          background_image: juego.background_image,
           rating: juego.rating
         }))
       )
     );
   }
 
+  // 🔹 Juegos guardados del usuario (tu base de datos)
+  obtenerJuegosPorEstado(estado: string): Observable<Juego[]> {
+    return this.http.get<Juego[]>(`${this.apiUrl}/mis-juegos/${estado}`);
+  }
+
+  // 🔹 Juego guardado en BD (por id_rawg)
   obtenerJuego(id: number): Observable<Juego> {
     return this.http.get<Juego>(`${this.apiUrl}/${id}`);
   }
 
-  obtenerJuegoPorId(id: number): Observable<any> {
-    const url = `https://api.rawg.io/api/games/${id}?key=${this.rawgApiKey}`;
-    return this.http.get<any>(url);
-  }
-
-  obtenerJuegosPorEstado(estado: string): Observable<Juego[]> {
-    return this.http.get<Juego[]>(`${this.apiUrl}/mis-juegos/${estado}`);
-  }
+  // 🔹 Guardar juego en la BD
   guardarJuego(dto: any): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -63,4 +66,8 @@ export class JuegoService {
     return this.http.post('http://localhost:8080/api/juegos/guardar', dto, { headers });
   }
 
+  obtenerJuegoPorId(id: number): Observable<any> {
+    const url = `https://api.rawg.io/api/games/${id}?key=${this.rawgApiKey}`;
+    return this.http.get<any>(url);
+  }
 }

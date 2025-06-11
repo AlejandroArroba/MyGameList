@@ -115,7 +115,7 @@ export class DetallesVideojuegoComponent implements OnInit {
       nombre: this.juego.name,
       imagenUrl: this.juego.background_image,
       estado: estado,
-      puntuacion: 0
+      puntuacion: null
     };
     this.juegoService.guardarJuego(dto).subscribe({
       next: () => alert(`Juego guardado como "${estado}" correctamente.`),

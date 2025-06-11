@@ -15,16 +15,18 @@
     />
   </div>
 
-  <!-- Grid de juegos -->
   <div class="grid">
-    @for (juego of juegos; track juego) {
-      <div class="card" [routerLink]="['/juegos', juego.id]" style="cursor: pointer;">
-        <img [src]="juego.backgroundImage" alt="{{ juego.name }}" />
-        <div class="contenido">
-          <h2>{{ juego.name }}</h2>
-        </div>
+    <div
+      class="card"
+      *ngFor="let juego of juegos; trackBy: trackJuego"
+      [routerLink]="['/juegos', juego.id]"
+      style="cursor: pointer;"
+    >
+      <img [src]="juego.background_image" alt="{{ juego.name }}" />
+      <div class="contenido">
+        <h2>{{ juego.name }}</h2>
       </div>
-    }
+    </div>
   </div>
 
   <!-- Paginación -->
