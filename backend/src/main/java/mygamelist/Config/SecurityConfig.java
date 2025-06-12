@@ -37,8 +37,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login", "/api/register", "/api/forgot-password").permitAll()
                         .requestMatchers("/api/juegos/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/comentarios/**").permitAll() // ✅ GET permitido
-                        .requestMatchers(HttpMethod.POST, "/api/comentarios/**").authenticated() // ✅ POST requiere login
+                        .requestMatchers(HttpMethod.GET, "/api/comentarios/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/comentarios/**").authenticated()
                         .requestMatchers("/api/perfil").authenticated()
                         .anyRequest().authenticated()
                 )
