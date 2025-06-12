@@ -75,10 +75,6 @@ input:focus {
   align-items: center;
 }
 
-.campo-password input {
-  padding-right: 2.5rem;
-}
-
 .toggle-password {
   position: absolute;
   right: 0.8rem;
@@ -147,3 +143,27 @@ input:focus {
   color: #fff;
   text-decoration: underline;
 }
+
+.campo-password input[type="password"],
+.campo-password input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: normal;
+  font-size: 1rem;
+  background-color: #1a1a1a;
+  border: 1px solid #6c1b2e;
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.6rem;
+  padding-right: 2.5rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.campo-password input[type="password"]:focus,
+.campo-password input[type="text"]:focus {
+  outline: none;
+  border-color: #ff3c6f;
+  box-shadow: 0 0 8px rgba(255, 60, 111, 0.5);
+}
+
